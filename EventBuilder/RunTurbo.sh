@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash
 
 #	-------------------------------------------------------------------
 #
@@ -50,7 +50,10 @@
 	#PathOfInputData=/afs/cern.ch/user/r/rasharma/work/public/GEMTestBeam/H4NovDec14_RawData/TURBO_data
 	#PathOfInputData=/afs/cern.ch/user/a/aalgoedt/public/b2b_turbo
 	#PathOfInputData=/afs/cern.ch/user/r/rasharma/work/public/GEM_TB_May2016/May2016_TB_Data/
-	PathOfInputData=/afs/cern.ch/work/s/ssalva/public/backtoback_tbdata/new_runss/
+	#PathOfInputData=/afs/cern.ch/work/s/ssalva/public/backtoback_tbdata/new_runss/
+	PathOfInputData=/afs/cern.ch/user/m/mressego/private/TESTBEAM_H2_2016/H2TestBeam/H2_TestBeam_May2016/beamdatah4	#H2 testbeam
+	PathOfInputData=/afs/cern.ch/work/m/mressego/public/H4TB/beamdatah4 #H4 testbeam
+	#PathOfInputData=/afs/cern.ch/work/m/mressego/public/cosmics #Test with cosmics
 	JustTextFile=0
 	# Some Default values
 	IRunNo=1120
@@ -438,24 +441,32 @@ do
   fi
 
   # Copies the right configuration file for the present run
-  if [ $RunCounter -le 124 ]; then
-    cp Setting_EventBuilderVFAT_BelowRun124.conf Setting_EventBuilderVFAT.conf
+  if [ $RunCounter -le 123 ]; then
+    cp Setting_EventBuilderVFAT_H2-2016.conf Setting_EventBuilderVFAT.conf #for H2 testbeam in May 2016
     #cp Setting_Analyzer_BelowRun1647.conf Setting_Analyzer.conf
     #git checkout ConfigFiles/OffsetFlip_EventBuilderVFAT_NOV2014_H4.conf
   fi
-  if [ $RunCounter -gt 123 ]; then
-    cp Setting_EventBuilderVFAT_AboveRun123.conf Setting_EventBuilderVFAT.conf
+  if [ $RunCounter -ge 124 ]; then
+    cp Setting_EventBuilderVFAT_R124-R186_H4-2016.conf Setting_EventBuilderVFAT.conf #for H4 testbeam in May 2016
     #cp Setting_Analyzer_AboveRun1646.conf Setting_Analyzer.conf
   fi
-  if [ $RunCounter -gt 238 ]; then
-    cp Setting_EventBuilderVFAT_AboveRun238.conf Setting_EventBuilderVFAT.conf
+  if [ $RunCounter -ge 187 ]; then
+    cp Setting_EventBuilderVFAT_R187-R238_H4-2016.conf Setting_EventBuilderVFAT.conf #for H4 testbeam in May 2016
   fi
-  if [ $RunCounter -gt 292 ]; then
-    cp Setting_EventBuilderVFAT_AboveRun292.conf Setting_EventBuilderVFAT.conf
+  if [ $RunCounter -ge 239 ]; then
+    cp Setting_EventBuilderVFAT_R239-R292_H4-2016.conf Setting_EventBuilderVFAT.conf #for H4 testbeam in May 2016
   fi
-  if [ $RunCounter -gt 332 ]; then
-    cp Setting_EventBuilderVFAT_AboveRun332.conf Setting_EventBuilderVFAT.conf
+  if [ $RunCounter -ge 293 ]; then
+    cp Setting_EventBuilderVFAT_R293-R357_H4-2016.conf Setting_EventBuilderVFAT.conf #for H4 testbeam in May 2016
   fi
+  if [ $RunCounter -ge 358 ]; then
+    cp Setting_EventBuilderVFAT_R358-R402_H4-2016.conf Setting_EventBuilderVFAT.conf #for H4 testbeam in May 2016
+  fi
+  
+  if [ $RunCounter -eq 1 ]; then
+    cp Setting_EventBuilderVFAT_cosmics01-2016.conf Setting_EventBuilderVFAT.conf #for test with cosmics Run001
+  fi
+  
   #if [ $RunCounter -gt 1864 ]; then
   #  cp Setting_EventBuilderVFAT_AboveRun1864.conf Setting_EventBuilderVFAT.conf
   #  cp Setting_Analyzer_AboveRun1864.conf Setting_Analyzer.conf
@@ -472,6 +483,8 @@ do
 #    cp Setting_EventBuilderVFAT_Run1118AndUp.conf Setting_EventBuilderVFAT.conf						         
 #  fi 
 #  fi
+
+
   for f in $PathOfInputData/Run$file*/ 	# Stores path of File in variable f
   do
   	echo "==================================================================================================================================================================================================================================================================================================================================================================="
